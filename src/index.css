@@ -1,9 +1,47 @@
 :root {
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --bg: #f3f4f6;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --primary: #0f766e;
+  --primary-hover: #0d9488;
+  --primary-soft: #ccfbf1;
+  --success: #15803d;
+  --danger: #b91c1c;
+  --warning: #b45309;
+  --sidebar-bg: #0f172a;
+  --sidebar-text: #e2e8f0;
+  --sidebar-muted: #94a3b8;
+  --sidebar-active: #134e4a;
+  --overlay: rgba(15, 23, 42, 0.48);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+
+  --sidebar-width: 260px;
+  --header-height: 64px;
+
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  font-family: var(--font);
   line-height: 1.5;
   font-weight: 400;
-  color: #1a1a1a;
-  background-color: #f6f7f9;
+  color: var(--text);
+  background-color: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -25,34 +63,43 @@ body {
   min-height: 100svh;
 }
 
-.app-placeholder {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  text-align: center;
-}
-
-.app-placeholder__brand {
-  margin: 0 0 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #5b6b7c;
-}
-
-.app-placeholder h1 {
-  margin: 0 0 12px;
-  font-size: 2rem;
-  font-weight: 650;
-  letter-spacing: -0.03em;
-}
-
-.app-placeholder__subtitle {
+h1,
+h2,
+h3 {
   margin: 0;
-  max-width: 36rem;
-  color: #5b6b7c;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -40px;
+  z-index: 1000;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: var(--space-3);
 }

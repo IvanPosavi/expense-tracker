@@ -1,0 +1,18 @@
+.page-placeholder {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.page-placeholder h2 {
+  font-size: 1.1rem;
+  font-weight: 650;
+}
+
+.page-placeholder p {
+  margin-top: var(--space-2);
+  max-width: 36rem;
+  color: var(--text-muted);
+}
