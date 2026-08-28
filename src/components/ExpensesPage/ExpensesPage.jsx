@@ -1,11 +1,26 @@
 import { useState } from 'react'
 import ExpenseForm from '../ExpenseForm/ExpenseForm'
 import ExpenseList from '../ExpenseList/ExpenseList'
+import ExpenseFilters from '../ExpenseFilters/ExpenseFilters'
 import { formatCurrency } from '../../utils/formatCurrency'
+import { filterExpenses } from '../../utils/filterExpenses'
+import { sortExpenses } from '../../utils/sortExpenses'
 import './ExpensesPage.css'
 
 function ExpensesPage({ expenses, onAddExpense, onEditExpense, onDeleteExpense }) {
   const [successMessage, setSuccessMessage] = useState('')
+  const [search, setSearch] = useState('')
+  const [category, setCategory] = useState('all')
+  const [dateRange, setDateRange] = useState('all')
+  const [sortBy, setSortBy] = useState('newest')
+
+  const visibleExpenses = sortExpenses(
+    filterExpenses(expenses, { search, category, dateRange }),
+    sortBy,
+  )
+
+  const hasActiveFilters =
+    search.trim() !== '' || category !== 'all' || dateRange !== 'all'
 
   function handleAddExpense(expenseInput) {
     const expense = onAddExpense(expenseInput)
@@ -14,12 +29,19 @@ function ExpensesPage({ expenses, onAddExpense, onEditExpense, onDeleteExpense }
     )
   }
 
+  const emptyTitle = hasActiveFilters
+    ? 'No matching expenses'
+    : 'No expenses yet'
+  const emptyDescription = hasActiveFilters
+    ? 'Try another search term or change your filters.'
+    : 'Start tracking your spending by adding your first expense.'
+
   return (
     <section className="expenses-page" aria-labelledby="expenses-heading">
       <div className="expenses-page__intro">
         <h2 id="expenses-heading">Expenses</h2>
         <p>
-          You currently have {expenses.length}{' '}
+          Showing {visibleExpenses.length} of {expenses.length}{' '}
           {expenses.length === 1 ? 'expense' : 'expenses'}.
         </p>
       </div>
@@ -37,10 +59,20 @@ function ExpensesPage({ expenses, onAddExpense, onEditExpense, onDeleteExpense }
 
       <div className="expenses-page__list">
         <h3 className="expenses-page__list-title">All expenses</h3>
+        <ExpenseFilters
+          search={search}
+          category={category}
+          dateRange={dateRange}
+          sortBy={sortBy}
+          onSearchChange={setSearch}
+          onCategoryChange={setCategory}
+          onDateRangeChange={setDateRange}
+          onSortChange={setSortBy}
+        />
         <ExpenseList
-          expenses={expenses}
-          emptyTitle="No expenses yet"
-          emptyDescription="Start tracking your spending by adding your first expense."
+          expenses={visibleExpenses}
+          emptyTitle={emptyTitle}
+          emptyDescription={emptyDescription}
           onEdit={onEditExpense}
           onDelete={onDeleteExpense}
         />
