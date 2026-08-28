@@ -1,0 +1,338 @@
+---
+description: Project rules for Expense Tracker
+alwaysApply: true
+---
+
+# Expense Tracker Project Rules
+
+You are working on a portfolio project called:
+
+Expense Tracker | ACME
+
+Follow these rules for all changes in this project.
+
+## Stack
+
+Use:
+
+- React
+- Vite
+- JavaScript
+- HTML5
+- CSS3
+- Recharts
+- Lucide React
+- localStorage
+
+Do not introduce:
+
+- TypeScript
+- Redux
+- Tailwind CSS
+- Bootstrap
+- Firebase
+- backend services
+- databases
+- unnecessary dependencies
+
+Do not install a new dependency unless it is clearly necessary.
+
+## Development Style
+
+Keep the project beginner-friendly.
+
+Prefer:
+
+- simple React components
+- clear props
+- React state
+- custom hooks where useful
+- reusable utility functions
+- meaningful variable and function names
+- semantic HTML
+- accessible controls
+
+Avoid:
+
+- unnecessary abstraction
+- over-engineering
+- giant components
+- duplicated logic
+- deeply nested component structures
+- complicated patterns when a simpler solution works
+
+## Project Workflow
+
+The project is being built phase by phase.
+
+Do not implement functionality from future phases unless explicitly requested.
+
+When the user asks to continue:
+
+1. Work only on the current phase.
+2. Do not rewrite unrelated working code.
+3. Preserve existing functionality.
+4. Test the changes.
+5. Explain what was changed.
+6. List created and modified files.
+7. Explain how to test the phase.
+8. Suggest one concise Conventional Commit message.
+9. Stop and wait for the user before moving to the next phase.
+
+Do not automatically start the next phase.
+
+## Git
+
+Use concise Conventional Commit messages such as:
+
+- chore: initialize expense tracker project
+- feat: add application layout
+- feat: add expense data model
+- feat: add expense form
+- fix: validate expense form
+- style: improve responsive dashboard
+- docs: update README
+
+Do not commit automatically.
+
+The user uses GitHub Desktop.
+
+## Architecture
+
+Keep the structure understandable and maintainable.
+
+Current preferred structure:
+
+src/
+  components/
+  data/
+  hooks/
+  utils/
+
+Use subfolders for components when it improves organization.
+
+Do not create files only for the sake of creating files.
+
+## Components
+
+Prefer small reusable components.
+
+Components should have one clear responsibility.
+
+Do not put all application logic inside App.jsx.
+
+Keep App.jsx focused on top-level application composition and state coordination.
+
+## State Management
+
+Do not use Redux.
+
+Use React state and custom hooks.
+
+As expense functionality grows, prefer a custom hook such as:
+
+useExpenses()
+
+for:
+
+- expenses
+- adding expenses
+- updating expenses
+- deleting expenses
+- persistence
+- related expense state logic
+
+Keep filtering and calculations separated when appropriate.
+
+## Expense Data
+
+Use a consistent expense object model.
+
+Preferred shape:
+
+{
+  id: "unique-id",
+  title: "Groceries",
+  amount: 45.90,
+  category: "Food",
+  date: "2026-08-23",
+  description: "Weekly groceries"
+}
+
+IDs must be unique.
+
+Do not rely on array indexes as IDs.
+
+## Categories
+
+Keep categories centralized in one reusable source.
+
+Initial categories:
+
+- Food
+- Transport
+- Shopping
+- Bills
+- Entertainment
+- Health
+- Travel
+- Other
+
+Do not duplicate category arrays across components.
+
+## Currency
+
+Default currency is EUR.
+
+Use a reusable formatter for currency.
+
+Do not manually concatenate currency symbols throughout components.
+
+## Dates
+
+Store dates in a consistent machine-readable format.
+
+Use reusable date formatting utilities for display.
+
+Avoid duplicated date formatting logic.
+
+## localStorage
+
+Use reusable storage utilities.
+
+Handle:
+
+- missing data
+- invalid JSON
+- malformed stored values
+
+The application must not crash because localStorage contains invalid data.
+
+## Design
+
+The application should look like a clean modern SaaS dashboard.
+
+Design goals:
+
+- professional
+- minimal
+- spacious
+- consistent
+- responsive
+- portfolio-quality
+
+Use:
+
+- CSS variables
+- consistent spacing
+- subtle borders
+- rounded cards
+- clear visual hierarchy
+- subtle hover and transition effects
+
+Do not scatter hardcoded colors throughout components.
+
+## Responsive Design
+
+Support:
+
+- mobile from 320px
+- tablet from 768px
+- desktop from 1024px
+- large desktop around 1440px
+
+Avoid horizontal scrolling.
+
+Forms, cards, navigation and charts must remain usable on mobile.
+
+## Accessibility
+
+Use:
+
+- semantic HTML
+- proper labels
+- real buttons for clickable actions
+- keyboard navigation
+- visible focus states
+- accessible form errors
+- aria-label only where needed
+
+Do not use clickable div elements when a button is appropriate.
+
+## Validation
+
+Do not rely only on browser validation.
+
+Show clear validation messages.
+
+Expense form requirements:
+
+Title:
+
+- required
+- minimum 2 characters
+
+Amount:
+
+- required
+- greater than 0
+- reasonable maximum
+
+Category:
+
+- required
+
+Date:
+
+- required
+
+Description:
+
+- optional
+
+## Charts
+
+Use Recharts only.
+
+Charts must:
+
+- use real expense data
+- be responsive
+- have readable tooltips
+- handle empty states
+- work on mobile
+
+Do not hardcode fake chart statistics into production logic.
+
+## Error Handling
+
+Handle errors gracefully.
+
+The UI should not crash because of:
+
+- invalid localStorage
+- empty data
+- invalid expense values
+- missing chart data
+
+## Performance
+
+Keep the app lightweight.
+
+Avoid:
+
+- unnecessary re-renders
+- excessive dependencies
+- premature optimization
+
+Prioritize readable code first.
+
+## Final Quality
+
+Before considering a phase complete:
+
+- check for console errors
+- check unused imports
+- check responsive behavior where relevant
+- preserve existing working behavior
+- avoid introducing functionality planned for later phases
