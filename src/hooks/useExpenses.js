@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SAMPLE_EXPENSES } from '../data/sampleExpenses'
 import { createExpense } from '../utils/createExpense'
+import { loadExpenses, saveExpenses } from '../utils/storage'
 
 function toExpenseFields(expenseInput) {
   return {
@@ -12,8 +13,22 @@ function toExpenseFields(expenseInput) {
   }
 }
 
+function getInitialExpenses() {
+  const storedExpenses = loadExpenses()
+
+  if (storedExpenses === null) {
+    return SAMPLE_EXPENSES
+  }
+
+  return storedExpenses
+}
+
 export function useExpenses() {
-  const [expenses, setExpenses] = useState(SAMPLE_EXPENSES)
+  const [expenses, setExpenses] = useState(getInitialExpenses)
+
+  useEffect(() => {
+    saveExpenses(expenses)
+  }, [expenses])
 
   function addExpense(expenseInput) {
     const expense = createExpense(toExpenseFields(expenseInput))

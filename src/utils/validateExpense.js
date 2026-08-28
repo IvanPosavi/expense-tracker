@@ -34,14 +34,14 @@ export function validateExpense(values) {
 
   if (!values.date) {
     errors.date = 'Choose a date.'
-  } else if (!isValidDate(values.date)) {
+  } else if (!isValidExpenseDate(values.date)) {
     errors.date = 'Enter a valid date.'
   }
 
   return errors
 }
 
-function isValidDate(value) {
+export function isValidExpenseDate(value) {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value)
 
   if (!match) {
