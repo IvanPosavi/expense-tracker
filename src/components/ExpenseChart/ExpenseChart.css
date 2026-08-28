@@ -1,0 +1,21 @@
+.expense-chart {
+  width: 100%;
+  min-height: 280px;
+}
+
+.expense-chart__tooltip {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.expense-chart__tooltip p:first-child {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.expense-chart__tooltip p:last-child {
+  font-weight: 650;
+}

@@ -45,6 +45,21 @@ export function getDashboardStats(expenses, now = new Date()) {
   }
 }
 
+export function getMonthlySpending(expenses, now = new Date(), monthCount = 6) {
+  const months = []
+
+  for (let offset = monthCount - 1; offset >= 0; offset -= 1) {
+    const range = getMonthRange(now, -offset)
+    months.push({
+      month: range.start.slice(0, 7),
+      label: formatMonthLabel(range.start),
+      amount: sumExpenses(inDateRange(expenses, range)),
+    })
+  }
+
+  return months
+}
+
 export function getPercentChange(current, previous) {
   if (!Number.isFinite(current) || !Number.isFinite(previous) || previous === 0) {
     return null
@@ -101,4 +116,15 @@ function formatIsoDate(date) {
   const month = String(date.getMonth() + 1).padStart(2, '0')
   const day = String(date.getDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
+}
+
+function formatMonthLabel(isoDate) {
+  const year = Number(isoDate.slice(0, 4))
+  const month = Number(isoDate.slice(5, 7))
+  const date = new Date(year, month - 1, 1)
+
+  return new Intl.DateTimeFormat('en-GB', {
+    month: 'short',
+    year: 'numeric',
+  }).format(date)
 }
