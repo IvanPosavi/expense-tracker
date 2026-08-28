@@ -1,22 +1,20 @@
 import { useState } from 'react'
 import Layout from './components/Layout/Layout'
 import Dashboard from './components/Dashboard/Dashboard'
+import ExpensesPage from './components/ExpensesPage/ExpensesPage'
 import PagePlaceholder from './components/PagePlaceholder/PagePlaceholder'
 import { CATEGORIES } from './data/categories'
-import { SAMPLE_EXPENSES } from './data/sampleExpenses'
+import { useExpenses } from './hooks/useExpenses'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard')
-  const [expenses] = useState(SAMPLE_EXPENSES)
+  const { expenses, addExpense } = useExpenses()
 
   return (
     <Layout currentPage={currentPage} onNavigate={setCurrentPage}>
       {currentPage === 'dashboard' ? <Dashboard /> : null}
       {currentPage === 'expenses' ? (
-        <PagePlaceholder
-          title="Expenses"
-          description={`${expenses.length} sample expenses are loaded for development. The list and add form will be built next.`}
-        />
+        <ExpensesPage expenses={expenses} onAddExpense={addExpense} />
       ) : null}
       {currentPage === 'categories' ? (
         <PagePlaceholder
