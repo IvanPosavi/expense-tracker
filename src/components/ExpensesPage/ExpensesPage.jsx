@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ExpenseForm from '../ExpenseForm/ExpenseForm'
+import ExpenseList from '../ExpenseList/ExpenseList'
 import { formatCurrency } from '../../utils/formatCurrency'
 import './ExpensesPage.css'
 
@@ -16,10 +17,10 @@ function ExpensesPage({ expenses, onAddExpense }) {
   return (
     <section className="expenses-page" aria-labelledby="expenses-heading">
       <div className="expenses-page__intro">
-        <h2 id="expenses-heading">Add an expense</h2>
+        <h2 id="expenses-heading">Expenses</h2>
         <p>
-          You currently have {expenses.length} expenses. The full list view will
-          be added next.
+          You currently have {expenses.length}{' '}
+          {expenses.length === 1 ? 'expense' : 'expenses'}.
         </p>
       </div>
 
@@ -30,7 +31,17 @@ function ExpensesPage({ expenses, onAddExpense }) {
       ) : null}
 
       <div className="expenses-page__card">
+        <h3 className="expenses-page__card-title">Add an expense</h3>
         <ExpenseForm onSubmit={handleAddExpense} />
+      </div>
+
+      <div className="expenses-page__list">
+        <h3 className="expenses-page__list-title">All expenses</h3>
+        <ExpenseList
+          expenses={expenses}
+          emptyTitle="No expenses yet"
+          emptyDescription="Start tracking your spending by adding your first expense."
+        />
       </div>
     </section>
   )

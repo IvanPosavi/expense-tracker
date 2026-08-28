@@ -12,7 +12,7 @@ function App() {
 
   return (
     <Layout currentPage={currentPage} onNavigate={setCurrentPage}>
-      {currentPage === 'dashboard' ? <Dashboard /> : null}
+      {currentPage === 'dashboard' ? <Dashboard expenses={expenses} /> : null}
       {currentPage === 'expenses' ? (
         <ExpensesPage expenses={expenses} onAddExpense={addExpense} />
       ) : null}

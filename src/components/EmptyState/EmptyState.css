@@ -1,0 +1,14 @@
+.empty-state {
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+}
+
+.empty-state__title {
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.empty-state__description {
+  margin-top: var(--space-2);
+  color: var(--text-muted);
+}

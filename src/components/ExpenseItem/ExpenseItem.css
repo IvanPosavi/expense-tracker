@@ -1,0 +1,56 @@
+.expense-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.expense-item__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.expense-item__details {
+  min-width: 0;
+  flex: 1;
+}
+
+.expense-item__title {
+  font-size: 0.95rem;
+  font-weight: 650;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.expense-item__meta {
+  margin-top: var(--space-1);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.expense-item__amount {
+  flex-shrink: 0;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+@media (max-width: 374px) {
+  .expense-item {
+    flex-wrap: wrap;
+  }
+
+  .expense-item__amount {
+    width: 100%;
+    padding-left: 52px;
+  }
+}
