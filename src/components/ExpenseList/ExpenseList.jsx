@@ -3,7 +3,13 @@ import EmptyState from '../EmptyState/EmptyState'
 import { sortExpensesByNewest } from '../../utils/sortExpenses'
 import './ExpenseList.css'
 
-function ExpenseList({ expenses, emptyTitle, emptyDescription }) {
+function ExpenseList({
+  expenses,
+  emptyTitle,
+  emptyDescription,
+  onEdit,
+  onDelete,
+}) {
   const sortedExpenses = sortExpensesByNewest(expenses)
 
   if (sortedExpenses.length === 0) {
@@ -14,7 +20,11 @@ function ExpenseList({ expenses, emptyTitle, emptyDescription }) {
     <ul className="expense-list">
       {sortedExpenses.map((expense) => (
         <li key={expense.id}>
-          <ExpenseItem expense={expense} />
+          <ExpenseItem
+            expense={expense}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
         </li>
       ))}
     </ul>

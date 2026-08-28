@@ -9,7 +9,7 @@ const SUMMARY_CARDS = [
   { id: 'count', label: 'Number of Expenses' },
 ]
 
-function Dashboard({ expenses }) {
+function Dashboard({ expenses, onEditExpense, onDeleteExpense }) {
   const recentExpenses = sortExpensesByNewest(expenses).slice(0, 5)
 
   return (
@@ -39,6 +39,8 @@ function Dashboard({ expenses }) {
             expenses={recentExpenses}
             emptyTitle="No expenses yet"
             emptyDescription="Start tracking your spending by adding your first expense."
+            onEdit={onEditExpense}
+            onDelete={onDeleteExpense}
           />
         </section>
       </div>

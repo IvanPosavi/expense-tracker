@@ -1,9 +1,10 @@
+import { Pencil, Trash2 } from 'lucide-react'
 import { getCategoryIcon } from '../../utils/getCategoryIcon'
 import { formatCurrency } from '../../utils/formatCurrency'
 import { formatDate } from '../../utils/formatDate'
 import './ExpenseItem.css'
 
-function ExpenseItem({ expense }) {
+function ExpenseItem({ expense, onEdit, onDelete }) {
   const CategoryIcon = getCategoryIcon(expense.category)
 
   return (
@@ -20,6 +21,25 @@ function ExpenseItem({ expense }) {
       </div>
 
       <p className="expense-item__amount">{formatCurrency(expense.amount)}</p>
+
+      <div className="expense-item__actions">
+        <button
+          type="button"
+          className="expense-item__action"
+          aria-label={`Edit ${expense.title}`}
+          onClick={() => onEdit(expense)}
+        >
+          <Pencil size={16} aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          className="expense-item__action expense-item__action--danger"
+          aria-label={`Delete ${expense.title}`}
+          onClick={() => onDelete(expense)}
+        >
+          <Trash2 size={16} aria-hidden="true" />
+        </button>
+      </div>
     </article>
   )
 }

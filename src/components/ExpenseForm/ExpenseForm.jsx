@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { CATEGORIES } from '../../data/categories'
 import { validateExpense } from '../../utils/validateExpense'
 import './ExpenseForm.css'
@@ -21,8 +21,27 @@ function getEmptyForm() {
   }
 }
 
-function ExpenseForm({ onSubmit }) {
-  const [values, setValues] = useState(getEmptyForm)
+function getFormValues(expense) {
+  if (!expense) {
+    return getEmptyForm()
+  }
+
+  return {
+    title: expense.title,
+    amount: String(expense.amount),
+    category: expense.category,
+    date: expense.date,
+    description: expense.description ?? '',
+  }
+}
+
+function ExpenseForm({
+  onSubmit,
+  initialValues = null,
+  submitLabel = 'Add expense',
+}) {
+  const fieldId = useId()
+  const [values, setValues] = useState(() => getFormValues(initialValues))
   const [errors, setErrors] = useState({})
 
   function handleChange(event) {
@@ -52,26 +71,29 @@ function ExpenseForm({ onSubmit }) {
       description: values.description.trim(),
     })
 
-    setValues(getEmptyForm())
+    if (!initialValues) {
+      setValues(getEmptyForm())
+    }
+
     setErrors({})
   }
 
   return (
     <form className="expense-form" onSubmit={handleSubmit} noValidate>
       <div className="expense-form__field">
-        <label htmlFor="expense-title">Title</label>
+        <label htmlFor={`${fieldId}-title`}>Title</label>
         <input
-          id="expense-title"
+          id={`${fieldId}-title`}
           name="title"
           type="text"
           value={values.title}
           onChange={handleChange}
           aria-invalid={Boolean(errors.title)}
-          aria-describedby={errors.title ? 'expense-title-error' : undefined}
+          aria-describedby={errors.title ? `${fieldId}-title-error` : undefined}
           autoComplete="off"
         />
         {errors.title ? (
-          <p id="expense-title-error" className="expense-form__error" role="alert">
+          <p id={`${fieldId}-title-error`} className="expense-form__error" role="alert">
             {errors.title}
           </p>
         ) : null}
@@ -79,9 +101,9 @@ function ExpenseForm({ onSubmit }) {
 
       <div className="expense-form__row">
         <div className="expense-form__field">
-          <label htmlFor="expense-amount">Amount (€)</label>
+          <label htmlFor={`${fieldId}-amount`}>Amount (€)</label>
           <input
-            id="expense-amount"
+            id={`${fieldId}-amount`}
             name="amount"
             type="number"
             inputMode="decimal"
@@ -90,25 +112,31 @@ function ExpenseForm({ onSubmit }) {
             value={values.amount}
             onChange={handleChange}
             aria-invalid={Boolean(errors.amount)}
-            aria-describedby={errors.amount ? 'expense-amount-error' : undefined}
+            aria-describedby={
+              errors.amount ? `${fieldId}-amount-error` : undefined
+            }
           />
           {errors.amount ? (
-            <p id="expense-amount-error" className="expense-form__error" role="alert">
+            <p
+              id={`${fieldId}-amount-error`}
+              className="expense-form__error"
+              role="alert"
+            >
               {errors.amount}
             </p>
           ) : null}
         </div>
 
         <div className="expense-form__field">
-          <label htmlFor="expense-category">Category</label>
+          <label htmlFor={`${fieldId}-category`}>Category</label>
           <select
-            id="expense-category"
+            id={`${fieldId}-category`}
             name="category"
             value={values.category}
             onChange={handleChange}
             aria-invalid={Boolean(errors.category)}
             aria-describedby={
-              errors.category ? 'expense-category-error' : undefined
+              errors.category ? `${fieldId}-category-error` : undefined
             }
           >
             <option value="">Select a category</option>
@@ -120,7 +148,7 @@ function ExpenseForm({ onSubmit }) {
           </select>
           {errors.category ? (
             <p
-              id="expense-category-error"
+              id={`${fieldId}-category-error`}
               className="expense-form__error"
               role="alert"
             >
@@ -131,29 +159,29 @@ function ExpenseForm({ onSubmit }) {
       </div>
 
       <div className="expense-form__field">
-        <label htmlFor="expense-date">Date</label>
+        <label htmlFor={`${fieldId}-date`}>Date</label>
         <input
-          id="expense-date"
+          id={`${fieldId}-date`}
           name="date"
           type="date"
           value={values.date}
           onChange={handleChange}
           aria-invalid={Boolean(errors.date)}
-          aria-describedby={errors.date ? 'expense-date-error' : undefined}
+          aria-describedby={errors.date ? `${fieldId}-date-error` : undefined}
         />
         {errors.date ? (
-          <p id="expense-date-error" className="expense-form__error" role="alert">
+          <p id={`${fieldId}-date-error`} className="expense-form__error" role="alert">
             {errors.date}
           </p>
         ) : null}
       </div>
 
       <div className="expense-form__field">
-        <label htmlFor="expense-description">
+        <label htmlFor={`${fieldId}-description`}>
           Description <span className="expense-form__optional">(optional)</span>
         </label>
         <textarea
-          id="expense-description"
+          id={`${fieldId}-description`}
           name="description"
           rows="3"
           value={values.description}
@@ -163,7 +191,7 @@ function ExpenseForm({ onSubmit }) {
 
       <div className="expense-form__actions">
         <button type="submit" className="expense-form__submit">
-          Add expense
+          {submitLabel}
         </button>
       </div>
     </form>

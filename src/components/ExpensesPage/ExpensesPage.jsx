@@ -4,7 +4,7 @@ import ExpenseList from '../ExpenseList/ExpenseList'
 import { formatCurrency } from '../../utils/formatCurrency'
 import './ExpensesPage.css'
 
-function ExpensesPage({ expenses, onAddExpense }) {
+function ExpensesPage({ expenses, onAddExpense, onEditExpense, onDeleteExpense }) {
   const [successMessage, setSuccessMessage] = useState('')
 
   function handleAddExpense(expenseInput) {
@@ -41,6 +41,8 @@ function ExpensesPage({ expenses, onAddExpense }) {
           expenses={expenses}
           emptyTitle="No expenses yet"
           emptyDescription="Start tracking your spending by adding your first expense."
+          onEdit={onEditExpense}
+          onDelete={onDeleteExpense}
         />
       </div>
     </section>
