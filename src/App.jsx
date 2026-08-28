@@ -2,10 +2,10 @@ import { useState } from 'react'
 import Layout from './components/Layout/Layout'
 import Dashboard from './components/Dashboard/Dashboard'
 import ExpensesPage from './components/ExpensesPage/ExpensesPage'
+import CategoriesPage from './components/CategoriesPage/CategoriesPage'
 import PagePlaceholder from './components/PagePlaceholder/PagePlaceholder'
 import Modal from './components/Modal/Modal'
 import ExpenseForm from './components/ExpenseForm/ExpenseForm'
-import { CATEGORIES } from './data/categories'
 import { useExpenses } from './hooks/useExpenses'
 import { formatCurrency } from './utils/formatCurrency'
 
@@ -54,18 +54,7 @@ function App() {
           />
         ) : null}
         {currentPage === 'categories' ? (
-          <PagePlaceholder
-            title="Categories"
-            description="These names come from one shared list. Spending by category will be added later."
-          >
-            <ul className="page-placeholder__list">
-              {CATEGORIES.map((category) => (
-                <li key={category} className="page-placeholder__chip">
-                  {category}
-                </li>
-              ))}
-            </ul>
-          </PagePlaceholder>
+          <CategoriesPage expenses={expenses} />
         ) : null}
         {currentPage === 'settings' ? (
           <PagePlaceholder

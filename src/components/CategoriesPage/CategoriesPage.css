@@ -1,0 +1,28 @@
+.categories-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 40rem;
+}
+
+.categories-page__intro h2 {
+  font-size: 1.1rem;
+  font-weight: 650;
+}
+
+.categories-page__intro p {
+  margin-top: var(--space-2);
+  color: var(--text-muted);
+}
+
+.categories-page__card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+
+.categories-page__card .category-stats {
+  margin-top: 0;
+}

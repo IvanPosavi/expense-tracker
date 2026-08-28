@@ -1,37 +1,29 @@
 import ExpenseList from '../ExpenseList/ExpenseList'
+import ExpenseSummary from '../ExpenseSummary/ExpenseSummary'
+import CategoryStats from '../CategoryStats/CategoryStats'
 import { sortExpensesByNewest } from '../../utils/sortExpenses'
+import { getDashboardStats } from '../../utils/expenseCalculations'
+import { formatCurrency } from '../../utils/formatCurrency'
 import './Dashboard.css'
-
-const SUMMARY_CARDS = [
-  { id: 'total', label: 'Total Expenses' },
-  { id: 'month', label: 'This Month' },
-  { id: 'week', label: 'This Week' },
-  { id: 'count', label: 'Number of Expenses' },
-]
 
 function Dashboard({ expenses, onEditExpense, onDeleteExpense }) {
   const recentExpenses = sortExpensesByNewest(expenses).slice(0, 5)
+  const stats = getDashboardStats(expenses)
 
   return (
     <section className="dashboard" aria-labelledby="dashboard-heading">
       <p id="dashboard-heading" className="dashboard__intro">
-        Overview of your spending. Real totals will appear once expenses are
-        added.
+        Overview of your spending. Average expense:{' '}
+        {formatCurrency(stats.average)}.
       </p>
 
-      <div className="summary-grid">
-        {SUMMARY_CARDS.map((card) => (
-          <article key={card.id} className="summary-card">
-            <p className="summary-card__label">{card.label}</p>
-            <p className="summary-card__value">—</p>
-          </article>
-        ))}
-      </div>
+      <ExpenseSummary stats={stats} />
 
       <div className="dashboard__panels">
-        <section className="panel" aria-labelledby="chart-heading">
-          <h2 id="chart-heading">Spending overview</h2>
-          <p className="panel__hint">Charts will be added in a later phase.</p>
+        <section className="panel" aria-labelledby="category-heading">
+          <h2 id="category-heading">Spending by category</h2>
+          <p className="panel__hint">Charts will be added in the next phase.</p>
+          <CategoryStats spendingByCategory={stats.spendingByCategory} />
         </section>
         <section className="panel" aria-labelledby="recent-heading">
           <h2 id="recent-heading">Recent expenses</h2>
