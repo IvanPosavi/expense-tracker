@@ -377,4 +377,6 @@ See the [LICENSE](LICENSE) file for the full terms.
 Frontend Developer  
 [GitHub](https://github.com/ivanposavi)
 
+---
+
 ⭐ If you are reviewing this project as part of my portfolio, feel free to explore the live demo and source code.
