@@ -29,10 +29,15 @@
 
 .category-stats__name {
   flex: 1;
+  min-width: 0;
   font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .category-stats__amount {
+  flex-shrink: 0;
   font-weight: 650;
   white-space: nowrap;
 }

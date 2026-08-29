@@ -3,13 +3,14 @@
   align-items: center;
   gap: var(--space-3);
   min-height: var(--header-height);
-  padding: 0 var(--space-5);
+  padding: 0 var(--space-4);
   border-bottom: 1px solid var(--border);
   background: var(--surface);
 }
 
 .header__menu {
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   width: 40px;
@@ -27,8 +28,23 @@
 }
 
 .header__title {
-  font-size: 1.15rem;
+  min-width: 0;
+  flex: 1;
+  font-size: 1.05rem;
   font-weight: 650;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding: 0 var(--space-5);
+  }
+
+  .header__title {
+    font-size: 1.15rem;
+  }
 }
 
 @media (min-width: 1024px) {

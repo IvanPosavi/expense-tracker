@@ -1,17 +1,23 @@
 .expense-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  grid-template-areas:
+    'icon details details'
+    'icon amount actions';
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-4);
+  column-gap: var(--space-3);
+  row-gap: var(--space-2);
+  padding: var(--space-3);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 }
 
 .expense-item__icon {
+  grid-area: icon;
   display: grid;
   place-items: center;
-  flex-shrink: 0;
+  align-self: start;
   width: 40px;
   height: 40px;
   border-radius: var(--radius-sm);
@@ -20,8 +26,8 @@
 }
 
 .expense-item__details {
+  grid-area: details;
   min-width: 0;
-  flex: 1;
 }
 
 .expense-item__title {
@@ -39,14 +45,14 @@
 }
 
 .expense-item__amount {
-  flex-shrink: 0;
+  grid-area: amount;
   font-weight: 650;
   white-space: nowrap;
 }
 
 .expense-item__actions {
+  grid-area: actions;
   display: flex;
-  flex-shrink: 0;
   gap: var(--space-1);
 }
 
@@ -73,18 +79,27 @@
   color: var(--danger);
 }
 
-@media (max-width: 374px) {
+@media (min-width: 640px) {
   .expense-item {
-    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
   }
 
-  .expense-item__amount,
-  .expense-item__actions {
-    padding-left: 52px;
+  .expense-item__icon {
+    align-self: center;
+  }
+
+  .expense-item__details {
+    flex: 1;
+  }
+
+  .expense-item__amount {
+    flex-shrink: 0;
   }
 
   .expense-item__actions {
-    width: 100%;
-    justify-content: flex-end;
+    flex-shrink: 0;
   }
 }

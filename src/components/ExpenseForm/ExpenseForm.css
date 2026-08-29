@@ -29,6 +29,8 @@
 .expense-form__field select,
 .expense-form__field textarea {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   min-height: 44px;
   padding: var(--space-2) var(--space-3);
   border: 1px solid var(--border);
@@ -68,6 +70,7 @@
 }
 
 .expense-form__submit {
+  width: 100%;
   min-height: 44px;
   padding: var(--space-2) var(--space-5);
   border: 0;
@@ -87,5 +90,9 @@
 @media (min-width: 768px) {
   .expense-form__row {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .expense-form__submit {
+    width: auto;
   }
 }

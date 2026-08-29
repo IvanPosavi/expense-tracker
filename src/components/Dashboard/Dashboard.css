@@ -17,11 +17,12 @@
 }
 
 .panel {
+  min-width: 0;
   min-height: 220px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: var(--space-5);
+  padding: var(--space-4);
   box-shadow: var(--shadow-sm);
 }
 
@@ -39,9 +40,13 @@
   color: var(--text-muted);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .dashboard__charts,
   .dashboard__panels {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .panel {
+    padding: var(--space-5);
   }
 }

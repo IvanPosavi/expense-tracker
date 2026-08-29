@@ -18,12 +18,28 @@
 
 .layout__content {
   flex: 1;
-  padding: var(--space-5);
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: var(--space-4);
+  overflow-x: clip;
+}
+
+@media (min-width: 768px) {
+  .layout__content {
+    padding: var(--space-5);
+  }
 }
 
 @media (min-width: 1024px) {
   .layout__content {
     padding: var(--space-6);
+  }
+}
+
+@media (min-width: 1440px) {
+  .layout__content {
+    padding: var(--space-7);
   }
 }
 
