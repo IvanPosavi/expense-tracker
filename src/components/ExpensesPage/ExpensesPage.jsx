@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ExpenseForm from '../ExpenseForm/ExpenseForm'
 import ExpenseList from '../ExpenseList/ExpenseList'
 import ExpenseFilters from '../ExpenseFilters/ExpenseFilters'
@@ -34,6 +34,18 @@ function ExpensesPage({ expenses, onAddExpense, onEditExpense, onDeleteExpense }
     )
   }
 
+  useEffect(() => {
+    if (!successMessage) {
+      return
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setSuccessMessage('')
+    }, 4000)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [successMessage])
+
   const emptyTitle = hasActiveFilters
     ? 'No matching expenses'
     : 'No expenses yet'
@@ -52,9 +64,17 @@ function ExpensesPage({ expenses, onAddExpense, onEditExpense, onDeleteExpense }
       </div>
 
       {successMessage ? (
-        <p className="expenses-page__success" role="status">
-          {successMessage}
-        </p>
+        <div className="expenses-page__success" role="status">
+          <p>{successMessage}</p>
+          <button
+            type="button"
+            className="expenses-page__success-close"
+            aria-label="Dismiss notification"
+            onClick={() => setSuccessMessage('')}
+          >
+            ×
+          </button>
+        </div>
       ) : null}
 
       <div className="expenses-page__card">

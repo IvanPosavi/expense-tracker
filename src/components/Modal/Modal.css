@@ -14,6 +14,7 @@
   padding: 0;
   background: var(--overlay);
   cursor: pointer;
+  animation: overlay-in 0.18s ease;
 }
 
 .modal {
@@ -86,6 +87,7 @@
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+  transition: background-color var(--duration) var(--ease), filter var(--duration) var(--ease);
 }
 
 .modal__button--secondary {
@@ -106,6 +108,16 @@
 
 .modal__button--danger:hover {
   filter: brightness(1.05);
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes modal-in {

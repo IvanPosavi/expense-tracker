@@ -10,7 +10,7 @@
   background: var(--surface);
   color: var(--text);
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color var(--duration) var(--ease), color var(--duration) var(--ease);
 }
 
 .theme-toggle:hover {

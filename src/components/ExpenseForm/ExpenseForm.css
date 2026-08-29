@@ -92,7 +92,7 @@
   font: inherit;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: background-color var(--duration) var(--ease);
 }
 
 .expense-form__submit:hover {

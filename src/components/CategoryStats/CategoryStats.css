@@ -15,6 +15,12 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--surface-muted);
+  transition: border-color var(--duration) var(--ease), background-color var(--duration) var(--ease);
+}
+
+.category-stats__row:hover {
+  border-color: var(--primary-soft);
+  background: var(--surface);
 }
 
 .category-stats__icon {

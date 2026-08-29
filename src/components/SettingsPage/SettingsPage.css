@@ -44,6 +44,7 @@
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+  transition: border-color var(--duration) var(--ease), background-color var(--duration) var(--ease);
 }
 
 .settings-page__option:hover {

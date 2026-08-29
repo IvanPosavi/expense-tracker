@@ -20,7 +20,7 @@
   background: var(--surface);
   color: var(--text);
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: background-color var(--duration) var(--ease);
 }
 
 .header__menu:hover {
