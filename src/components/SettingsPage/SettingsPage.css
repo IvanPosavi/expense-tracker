@@ -1,0 +1,57 @@
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 40rem;
+}
+
+.settings-page__intro h2 {
+  font-size: 1.1rem;
+  font-weight: 650;
+}
+
+.settings-page__intro p {
+  margin-top: var(--space-2);
+  color: var(--text-muted);
+}
+
+.settings-page__card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+
+.settings-page__label {
+  margin-bottom: var(--space-3);
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.settings-page__options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.settings-page__option {
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-muted);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.settings-page__option:hover {
+  border-color: var(--primary);
+}
+
+.settings-page__option.is-active {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--text);
+}

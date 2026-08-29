@@ -5,6 +5,14 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Expense Tracker | ACME</title>
+    <script>
+      try {
+        var theme = localStorage.getItem('acme-expense-tracker-theme')
+        if (theme === 'dark' || theme === 'light') {
+          document.documentElement.setAttribute('data-theme', theme)
+        }
+      } catch (error) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

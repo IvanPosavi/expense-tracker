@@ -98,7 +98,7 @@
 .modal__button--danger {
   border: 0;
   background: var(--danger);
-  color: #fff;
+  color: var(--on-danger);
 }
 
 .modal__button--danger:hover {

@@ -4,7 +4,13 @@ import Sidebar from '../Sidebar/Sidebar'
 import { PAGE_TITLES } from '../../data/navigation'
 import './Layout.css'
 
-function Layout({ currentPage, onNavigate, children }) {
+function Layout({
+  currentPage,
+  onNavigate,
+  children,
+  theme,
+  onToggleTheme,
+}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   function closeSidebar() {
@@ -73,6 +79,8 @@ function Layout({ currentPage, onNavigate, children }) {
           title={PAGE_TITLES[currentPage]}
           isSidebarOpen={isSidebarOpen}
           onMenuClick={() => setIsSidebarOpen((open) => !open)}
+          theme={theme}
+          onToggleTheme={onToggleTheme}
         />
         <main id="main-content" className="layout__content">
           {children}

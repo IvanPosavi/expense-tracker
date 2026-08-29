@@ -3,14 +3,16 @@ import Layout from './components/Layout/Layout'
 import Dashboard from './components/Dashboard/Dashboard'
 import ExpensesPage from './components/ExpensesPage/ExpensesPage'
 import CategoriesPage from './components/CategoriesPage/CategoriesPage'
-import PagePlaceholder from './components/PagePlaceholder/PagePlaceholder'
+import SettingsPage from './components/SettingsPage/SettingsPage'
 import Modal from './components/Modal/Modal'
 import ExpenseForm from './components/ExpenseForm/ExpenseForm'
 import { useExpenses } from './hooks/useExpenses'
+import { useTheme } from './hooks/useTheme'
 import { formatCurrency } from './utils/formatCurrency'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard')
+  const { theme, setTheme, toggleTheme } = useTheme()
   const { expenses, addExpense, updateExpense, deleteExpense } = useExpenses()
   const [editingExpense, setEditingExpense] = useState(null)
   const [deletingExpense, setDeletingExpense] = useState(null)
@@ -37,7 +39,12 @@ function App() {
 
   return (
     <>
-      <Layout currentPage={currentPage} onNavigate={setCurrentPage}>
+      <Layout
+        currentPage={currentPage}
+        onNavigate={setCurrentPage}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+      >
         {currentPage === 'dashboard' ? (
           <Dashboard
             expenses={expenses}
@@ -57,10 +64,7 @@ function App() {
           <CategoriesPage expenses={expenses} />
         ) : null}
         {currentPage === 'settings' ? (
-          <PagePlaceholder
-            title="Settings"
-            description="Theme and preferences will be added later. For now this page is a layout placeholder."
-          />
+          <SettingsPage theme={theme} onThemeChange={setTheme} />
         ) : null}
       </Layout>
 

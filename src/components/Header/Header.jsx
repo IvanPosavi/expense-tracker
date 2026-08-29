@@ -1,7 +1,8 @@
 import { Menu, X } from 'lucide-react'
+import ThemeToggle from '../ThemeToggle/ThemeToggle'
 import './Header.css'
 
-function Header({ title, isSidebarOpen, onMenuClick }) {
+function Header({ title, isSidebarOpen, onMenuClick, theme, onToggleTheme }) {
   return (
     <header className="header">
       <button
@@ -19,6 +20,7 @@ function Header({ title, isSidebarOpen, onMenuClick }) {
         )}
       </button>
       <h1 className="header__title">{title}</h1>
+      <ThemeToggle theme={theme} onToggle={onToggleTheme} />
     </header>
   )
 }

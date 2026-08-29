@@ -20,7 +20,7 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-5);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--sidebar-border);
 }
 
 .sidebar__logo {
@@ -30,7 +30,7 @@
   height: 36px;
   border-radius: var(--radius-sm);
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
 }
 
 .sidebar__product {
@@ -70,18 +70,18 @@
 }
 
 .sidebar__link:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
+  background: var(--sidebar-hover);
+  color: var(--sidebar-text);
 }
 
 .sidebar__link.is-active {
   background: var(--sidebar-active);
-  color: #fff;
+  color: var(--sidebar-text);
 }
 
 .sidebar__footer {
   padding: var(--space-4);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--sidebar-border);
 }
 
 @media (min-width: 1024px) {
