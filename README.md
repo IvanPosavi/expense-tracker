@@ -16,8 +16,7 @@ A modern browser-based expense tracker with a clean SaaS-style dashboard, live c
 ## 🚀 Live Demo
 
 **Production:**  
-👉 [https://ivanposavi.github.io/expense-tracker/](https://ivanposavi.github.io/expense-tracker/)
-
+<a href="[https://ivanposavi.github.io/chat-app/](https://ivanposavi.github.io/expense-tracker/)"> <img src="https://img.shields.io/badge/🌐%20Visit%20Website-21759B?style=for-the-badge" alt="Visit Website"> </a>
 The live version is deployed through **GitHub Pages** and supports installation as a **Progressive Web App**.
 
 ---
