@@ -4,6 +4,12 @@ A modern expense tracker for the browser. Add, edit, and review spending with a 
 
 This is a frontend portfolio project by **Ivan Posavi**. There is no backend and no account system. Expenses and theme preference are saved in `localStorage`.
 
+## Demo
+
+**Live production version:** [https://ivanposavi.github.io/expense-tracker/](https://ivanposavi.github.io/expense-tracker/)
+
+This is the deployed GitHub Pages build, not the local development server.
+
 ## Features
 
 - Add, edit, and delete expenses
