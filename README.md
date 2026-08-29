@@ -1,30 +1,58 @@
-# Expense Tracker | ACME
+# 💸 Expense Tracker | ACME
 
-A modern expense tracker for the browser. Add, edit, and review spending with a clean SaaS-style dashboard, live charts, and data that stays on your device.
+A modern browser-based expense tracker with a clean SaaS-style dashboard, live charts, local persistence, dark mode, and PWA support.
 
-This is a frontend portfolio project by **Ivan Posavi**. There is no backend and no account system. Expenses and theme preference are saved in `localStorage`.
+> Frontend portfolio project by **Ivan Posavi**
 
-## Demo
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-2ea44f?style=for-the-badge&logo=github)](https://ivanposavi.github.io/expense-tracker/)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=000)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=fff)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=000)
+![PWA](https://img.shields.io/badge/PWA-Installable-5A0FC8?style=for-the-badge&logo=pwa)
+![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red?style=for-the-badge)
 
-**Live production version:** [https://ivanposavi.github.io/expense-tracker/](https://ivanposavi.github.io/expense-tracker/)
+---
 
-This is the deployed GitHub Pages build, not the local development server.
+## 🚀 Live Demo
 
-## Features
+**Production:**  
+👉 [https://ivanposavi.github.io/expense-tracker/](https://ivanposavi.github.io/expense-tracker/)
 
-- Add, edit, and delete expenses
-- Search, filter by category or date, and sort the list
-- Dashboard totals for all time, this month, this week, and average amount
-- Charts for spending by category and over the last six months
-- Category totals across the same eight categories
-- Light and dark theme, saved on this device
-- Form validation with clear error messages
-- Responsive layout from 320px upward
-- Keyboard-friendly controls, labels, and a skip link to main content
+The live version is deployed through **GitHub Pages** and supports installation as a **Progressive Web App**.
 
-Currency is **EUR**. Dates are stored as `YYYY-MM-DD`.
+---
 
-## Tech stack
+## ✨ Features
+
+- ➕ Add expenses
+- ✏️ Edit existing expenses
+- 🗑️ Delete expenses with confirmation
+- 🔎 Search expenses by title, description, or category
+- 🏷️ Filter by category
+- 📅 Filter by date range
+- ↕️ Sort by newest, oldest, highest, or lowest amount
+- 📊 Dashboard totals and spending summaries
+- 🍩 Spending by category chart
+- 📈 Spending over time chart
+- 🌗 Light and dark mode
+- 💾 Persistent browser storage with `localStorage`
+- 📱 Fully responsive layout from 320px upward
+- ♿ Keyboard-friendly and accessible UI
+- 📴 Offline support through a service worker
+- 📲 Installable PWA
+- 🛡️ Graceful handling of invalid stored data and form errors
+
+Currency is **EUR (€)**.
+
+Dates are stored internally as:
+
+```text
+YYYY-MM-DD
+```
+
+---
+
+## 🛠️ Tech stack
 
 | Area | Choice |
 | --- | --- |
@@ -34,9 +62,14 @@ Currency is **EUR**. Dates are stored as `YYYY-MM-DD`.
 | Charts | Recharts |
 | Icons | Lucide React |
 | Persistence | `localStorage` |
+| PWA | `vite-plugin-pwa` |
 | Styling | CSS3 (custom properties, no Tailwind or Bootstrap) |
 
-## Getting started
+There is no backend, database, or authentication. Data never leaves the browser.
+
+---
+
+## 📦 Getting started
 
 You need [Node.js](https://nodejs.org/) 20 or newer.
 
@@ -45,7 +78,11 @@ npm install
 npm run dev
 ```
 
-Open the URL Vite prints (usually `http://localhost:5173`).
+Open the URL Vite prints. With the GitHub Pages base path, that is usually:
+
+```text
+http://localhost:5173/expense-tracker/
+```
 
 | Script | What it does |
 | --- | --- |
@@ -56,7 +93,9 @@ Open the URL Vite prints (usually `http://localhost:5173`).
 
 On first visit, the app seeds a few sample expenses so the dashboard and charts are not empty. After that, your list is what is stored in the browser. An empty list stays empty after refresh.
 
-## Usage
+---
+
+## 🖱️ Usage
 
 1. Open **Expenses** and fill in title, amount, category, and date. Description is optional.
 2. Use search, category, date range, and sort to find items.
@@ -64,9 +103,21 @@ On first visit, the app seeds a few sample expenses so the dashboard and charts 
 4. Check **Dashboard** for totals and charts, and **Categories** for a full category breakdown.
 5. Use **Settings** or the header control to switch light and dark mode.
 
-Data never leaves the browser. Clearing site data for this origin removes expenses and the saved theme.
+Clearing site data for this origin removes expenses and the saved theme.
 
-## Project structure
+---
+
+## 📲 PWA
+
+The production app can be installed from Chrome or Edge and can open the application shell offline after it has loaded once.
+
+- Manifest name: `Expense Tracker | ACME`
+- Short name: `Expense Tracker`
+- Service worker updates automatically so you are not stuck on an old cached build
+
+---
+
+## 📁 Project structure
 
 ```text
 src/
@@ -100,11 +151,15 @@ Storage keys:
 
 Invalid JSON or malformed expenses are ignored so a bad stored value does not crash the app.
 
-## Accessibility
+---
+
+## ♿ Accessibility
 
 The app uses semantic HTML, visible focus styles, labelled form fields, and real buttons for actions. Dialogs can be closed with Escape. A skip link jumps to main content.
 
-## License
+---
+
+## 📄 License
 
 This project is proprietary. Copyright (c) 2026 Ivan Posavi. All rights reserved.
 
