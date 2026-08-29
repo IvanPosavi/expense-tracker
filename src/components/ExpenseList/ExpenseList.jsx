@@ -14,7 +14,7 @@ function ExpenseList({
   }
 
   return (
-    <ul className="expense-list">
+    <ul className="expense-list" aria-label="Expenses">
       {expenses.map((expense) => (
         <li key={expense.id}>
           <ExpenseItem

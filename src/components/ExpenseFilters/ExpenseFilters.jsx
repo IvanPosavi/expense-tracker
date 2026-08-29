@@ -14,8 +14,17 @@ function ExpenseFilters({
   onDateRangeChange,
   onSortChange,
 }) {
+  function handleSubmit(event) {
+    event.preventDefault()
+  }
+
   return (
-    <div className="expense-filters">
+    <form
+      className="expense-filters"
+      role="search"
+      aria-label="Filter expenses"
+      onSubmit={handleSubmit}
+    >
       <div className="expense-filters__search">
         <label htmlFor="expense-search" className="expense-filters__label">
           Search
@@ -84,7 +93,7 @@ function ExpenseFilters({
           ))}
         </select>
       </div>
-    </div>
+    </form>
   )
 }
 

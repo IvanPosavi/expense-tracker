@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Header from '../Header/Header'
 import Sidebar from '../Sidebar/Sidebar'
 import { PAGE_TITLES } from '../../data/navigation'
@@ -11,8 +11,10 @@ function Layout({
   theme,
   onToggleTheme,
   storageWarning,
+  inert = false,
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const isFirstPageLoad = useRef(true)
 
   function closeSidebar() {
     setIsSidebarOpen(false)
@@ -54,8 +56,22 @@ function Layout({
     }
   }, [isSidebarOpen])
 
+  useEffect(() => {
+    const pageTitle = PAGE_TITLES[currentPage] ?? 'Dashboard'
+    document.title = `${pageTitle} | Expense Tracker | ACME`
+  }, [currentPage])
+
+  useEffect(() => {
+    if (isFirstPageLoad.current) {
+      isFirstPageLoad.current = false
+      return
+    }
+
+    document.getElementById('page-title')?.focus()
+  }, [currentPage])
+
   return (
-    <div className="layout">
+    <div className="layout" inert={inert ? true : undefined}>
       <a className="skip-link" href="#main-content">
         Skip to main content
       </a>
@@ -83,9 +99,9 @@ function Layout({
           theme={theme}
           onToggleTheme={onToggleTheme}
         />
-        <main id="main-content" className="layout__content">
+        <main id="main-content" className="layout__content" tabIndex={-1}>
           {storageWarning ? (
-            <p className="layout__banner" role="status">
+            <p className="layout__banner" role="alert">
               {storageWarning}
             </p>
           ) : null}

@@ -19,7 +19,9 @@ function Header({ title, isSidebarOpen, onMenuClick, theme, onToggleTheme }) {
           <Menu size={20} aria-hidden="true" />
         )}
       </button>
-      <h1 className="header__title">{title}</h1>
+      <h1 id="page-title" className="header__title" tabIndex={-1}>
+        {title}
+      </h1>
       <ThemeToggle theme={theme} onToggle={onToggleTheme} />
     </header>
   )

@@ -74,6 +74,13 @@ function ExpenseSummary({ stats }) {
                       : 'summary-card__change'
                 }
               >
+                <span className="visually-hidden">
+                  {isNegative
+                    ? 'Decrease of '
+                    : isPositive
+                      ? 'Increase of '
+                      : 'Change of '}
+                </span>
                 {card.change} {card.changeLabel}
               </p>
             ) : card.extra ? (

@@ -18,10 +18,10 @@ function Dashboard({ expenses, onEditExpense, onDeleteExpense }) {
 
   return (
     <section className="dashboard" aria-labelledby="dashboard-heading">
-      <p id="dashboard-heading" className="dashboard__intro">
+      <h2 id="dashboard-heading" className="dashboard__intro">
         Overview of your spending. Average expense:{' '}
         {formatCurrency(stats.average)}.
-      </p>
+      </h2>
 
       <ExpenseSummary stats={stats} />
 

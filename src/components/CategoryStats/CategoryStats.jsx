@@ -16,7 +16,7 @@ function CategoryStats({ spendingByCategory }) {
   }
 
   return (
-    <ul className="category-stats">
+    <ul className="category-stats" aria-label="Spending by category">
       {spendingByCategory.map((item) => {
         const Icon = getCategoryIcon(item.category)
 

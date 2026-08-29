@@ -46,6 +46,7 @@ function App() {
         theme={theme}
         onToggleTheme={toggleTheme}
         storageWarning={storageWarning}
+        inert={Boolean(editingExpense || deletingExpense)}
       >
         {currentPage === 'dashboard' ? (
           <Dashboard
@@ -82,8 +83,13 @@ function App() {
       ) : null}
 
       {deletingExpense ? (
-        <Modal title="Delete expense" onClose={() => setDeletingExpense(null)}>
-          <p className="modal__text">
+        <Modal
+          title="Delete expense"
+          role="alertdialog"
+          descriptionId="delete-expense-description"
+          onClose={() => setDeletingExpense(null)}
+        >
+          <p id="delete-expense-description" className="modal__text">
             Delete {deletingExpense.title} (
             {formatCurrency(deletingExpense.amount)})? This cannot be undone.
           </p>

@@ -1,7 +1,14 @@
 .expense-chart {
+  position: relative;
+  margin: 0;
   width: 100%;
   height: 220px;
   min-width: 0;
+}
+
+.expense-chart__canvas {
+  width: 100%;
+  height: 100%;
 }
 
 @media (min-width: 768px) {

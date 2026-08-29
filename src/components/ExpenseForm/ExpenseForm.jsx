@@ -98,9 +98,18 @@ function ExpenseForm({
   }
 
   return (
-    <form className="expense-form" onSubmit={handleSubmit} noValidate>
+    <form
+      className="expense-form"
+      onSubmit={handleSubmit}
+      noValidate
+      aria-describedby={errorCount > 0 ? `${fieldId}-summary` : undefined}
+    >
       {errorCount > 0 ? (
-        <p className="expense-form__summary" role="alert">
+        <p
+          id={`${fieldId}-summary`}
+          className="expense-form__summary"
+          role="alert"
+        >
           Please fix {errorCount} {errorCount === 1 ? 'error' : 'errors'}{' '}
           before continuing.
         </p>
@@ -117,6 +126,8 @@ function ExpenseForm({
           aria-invalid={Boolean(errors.title)}
           aria-describedby={errors.title ? `${fieldId}-title-error` : undefined}
           autoComplete="off"
+          required
+          aria-required="true"
           maxLength={MAX_TITLE_LENGTH}
         />
         {errors.title ? (
@@ -136,6 +147,8 @@ function ExpenseForm({
             inputMode="decimal"
             min="0.01"
             step="0.01"
+            required
+            aria-required="true"
             value={values.amount}
             onChange={handleChange}
             aria-invalid={Boolean(errors.amount)}
@@ -156,6 +169,8 @@ function ExpenseForm({
             id={`${fieldId}-category`}
             name="category"
             value={values.category}
+            required
+            aria-required="true"
             onChange={handleChange}
             aria-invalid={Boolean(errors.category)}
             aria-describedby={
@@ -185,6 +200,8 @@ function ExpenseForm({
           type="date"
           min="2000-01-01"
           max="2100-12-31"
+          required
+          aria-required="true"
           value={values.date}
           onChange={handleChange}
           aria-invalid={Boolean(errors.date)}

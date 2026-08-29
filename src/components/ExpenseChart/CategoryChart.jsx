@@ -31,33 +31,38 @@ function CategoryChart({ spendingByCategory }) {
     )
   }
 
+  const summary = data
+    .map((item) => `${item.category} ${formatCurrency(item.amount)}`)
+    .join(', ')
+
   return (
-    <div
-      className="expense-chart"
-      role="img"
-      aria-label="Spending by category"
-    >
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Pie
-            data={data}
-            dataKey="amount"
-            nameKey="category"
-            innerRadius={62}
-            outerRadius={92}
-            paddingAngle={2}
-          >
-            {data.map((item) => (
-              <Cell
-                key={item.category}
-                fill={CATEGORY_COLORS[item.category] ?? 'var(--chart-8)'}
-              />
-            ))}
-          </Pie>
-          <Tooltip content={CategoryTooltip} />
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
+    <figure className="expense-chart">
+      <figcaption className="visually-hidden">
+        Spending by category: {summary}.
+      </figcaption>
+      <div className="expense-chart__canvas" aria-hidden="true">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={data}
+              dataKey="amount"
+              nameKey="category"
+              innerRadius={62}
+              outerRadius={92}
+              paddingAngle={2}
+            >
+              {data.map((item) => (
+                <Cell
+                  key={item.category}
+                  fill={CATEGORY_COLORS[item.category] ?? 'var(--chart-8)'}
+                />
+              ))}
+            </Pie>
+            <Tooltip content={CategoryTooltip} />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+    </figure>
   )
 }
 

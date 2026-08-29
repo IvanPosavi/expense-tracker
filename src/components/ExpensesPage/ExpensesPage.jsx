@@ -64,7 +64,7 @@ function ExpensesPage({ expenses, onAddExpense, onEditExpense, onDeleteExpense }
       </div>
 
       {successMessage ? (
-        <div className="expenses-page__success" role="status">
+        <div className="expenses-page__success" role="status" aria-live="polite">
           <p>{successMessage}</p>
           <button
             type="button"

@@ -2,16 +2,70 @@ import { useEffect, useId, useRef } from 'react'
 import { X } from 'lucide-react'
 import './Modal.css'
 
-function Modal({ title, onClose, children }) {
+const FOCUSABLE_SELECTOR = [
+  'a[href]',
+  'button:not([disabled])',
+  'textarea:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(', ')
+
+function getFocusableElements(container) {
+  return [...container.querySelectorAll(FOCUSABLE_SELECTOR)].filter((element) => {
+    return element.getClientRects().length > 0
+  })
+}
+
+function Modal({
+  title,
+  onClose,
+  children,
+  role = 'dialog',
+  descriptionId,
+}) {
   const titleId = useId()
   const dialogRef = useRef(null)
+  const onCloseRef = useRef(onClose)
+  onCloseRef.current = onClose
 
   useEffect(() => {
-    dialogRef.current?.focus()
+    const dialog = dialogRef.current
+    const previouslyFocused =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null
+
+    dialog?.focus()
 
     function handleKeyDown(event) {
       if (event.key === 'Escape') {
-        onClose()
+        onCloseRef.current()
+        return
+      }
+
+      if (event.key !== 'Tab' || !dialog) {
+        return
+      }
+
+      const focusable = getFocusableElements(dialog)
+
+      if (focusable.length === 0) {
+        event.preventDefault()
+        dialog.focus()
+        return
+      }
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      const isShift = event.shiftKey
+
+      if (isShift && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!isShift && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
       }
     }
 
@@ -21,23 +75,23 @@ function Modal({ title, onClose, children }) {
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = ''
+      previouslyFocused?.focus()
     }
-  }, [onClose])
+  }, [])
 
   return (
     <div className="modal-root">
-      <button
-        type="button"
+      <div
         className="modal-root__backdrop"
-        aria-label="Close dialog"
-        onClick={onClose}
+        onClick={() => onCloseRef.current()}
       />
       <div
         ref={dialogRef}
         className="modal"
-        role="dialog"
+        role={role}
         aria-modal="true"
         aria-labelledby={titleId}
+        aria-describedby={descriptionId}
         tabIndex={-1}
       >
         <div className="modal__header">
@@ -48,7 +102,7 @@ function Modal({ title, onClose, children }) {
             type="button"
             className="modal__close"
             aria-label="Close"
-            onClick={onClose}
+            onClick={() => onCloseRef.current()}
           >
             <X size={18} aria-hidden="true" />
           </button>

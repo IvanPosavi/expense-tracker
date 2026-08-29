@@ -36,38 +36,43 @@ function MonthlyChart({ monthlySpending }) {
     )
   }
 
+  const summary = monthlySpending
+    .map((item) => `${item.label} ${formatCurrency(item.amount)}`)
+    .join(', ')
+
   return (
-    <div
-      className="expense-chart"
-      role="img"
-      aria-label="Monthly spending"
-    >
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={monthlySpending} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-          <CartesianGrid vertical={false} stroke="var(--border)" />
-          <XAxis
-            dataKey="label"
-            tick={{ fill: 'var(--text-muted)', fontSize: 12 }}
-            tickLine={false}
-            axisLine={false}
-          />
-          <YAxis
-            tick={{ fill: 'var(--text-muted)', fontSize: 12 }}
-            tickLine={false}
-            axisLine={false}
-            width={48}
-            tickFormatter={(value) => formatCompactCurrency(value)}
-          />
-          <Tooltip content={MonthlyTooltip} cursor={{ fill: 'var(--primary-soft)' }} />
-          <Bar
-            dataKey="amount"
-            fill="var(--primary)"
-            radius={[6, 6, 0, 0]}
-            maxBarSize={48}
-          />
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+    <figure className="expense-chart">
+      <figcaption className="visually-hidden">
+        Monthly spending: {summary}.
+      </figcaption>
+      <div className="expense-chart__canvas" aria-hidden="true">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={monthlySpending} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+            <CartesianGrid vertical={false} stroke="var(--border)" />
+            <XAxis
+              dataKey="label"
+              tick={{ fill: 'var(--text-muted)', fontSize: 12 }}
+              tickLine={false}
+              axisLine={false}
+            />
+            <YAxis
+              tick={{ fill: 'var(--text-muted)', fontSize: 12 }}
+              tickLine={false}
+              axisLine={false}
+              width={48}
+              tickFormatter={(value) => formatCompactCurrency(value)}
+            />
+            <Tooltip content={MonthlyTooltip} cursor={{ fill: 'var(--primary-soft)' }} />
+            <Bar
+              dataKey="amount"
+              fill="var(--primary)"
+              radius={[6, 6, 0, 0]}
+              maxBarSize={48}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </figure>
   )
 }
 
