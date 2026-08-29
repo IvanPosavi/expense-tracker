@@ -10,6 +10,7 @@ function Layout({
   children,
   theme,
   onToggleTheme,
+  storageWarning,
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
@@ -83,6 +84,11 @@ function Layout({
           onToggleTheme={onToggleTheme}
         />
         <main id="main-content" className="layout__content">
+          {storageWarning ? (
+            <p className="layout__banner" role="status">
+              {storageWarning}
+            </p>
+          ) : null}
           {children}
         </main>
       </div>

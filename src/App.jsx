@@ -13,7 +13,8 @@ import { formatCurrency } from './utils/formatCurrency'
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard')
   const { theme, setTheme, toggleTheme } = useTheme()
-  const { expenses, addExpense, updateExpense, deleteExpense } = useExpenses()
+  const { expenses, addExpense, updateExpense, deleteExpense, storageWarning } =
+    useExpenses()
   const [editingExpense, setEditingExpense] = useState(null)
   const [deletingExpense, setDeletingExpense] = useState(null)
 
@@ -44,6 +45,7 @@ function App() {
         onNavigate={setCurrentPage}
         theme={theme}
         onToggleTheme={toggleTheme}
+        storageWarning={storageWarning}
       >
         {currentPage === 'dashboard' ? (
           <Dashboard

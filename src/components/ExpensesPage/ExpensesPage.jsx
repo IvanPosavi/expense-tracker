@@ -24,6 +24,11 @@ function ExpensesPage({ expenses, onAddExpense, onEditExpense, onDeleteExpense }
 
   function handleAddExpense(expenseInput) {
     const expense = onAddExpense(expenseInput)
+
+    if (!expense) {
+      return
+    }
+
     setSuccessMessage(
       `${expense.title} was added for ${formatCurrency(expense.amount)}.`,
     )

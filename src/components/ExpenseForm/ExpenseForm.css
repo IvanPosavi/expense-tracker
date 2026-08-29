@@ -54,8 +54,20 @@
 }
 
 .expense-form__field input[aria-invalid='true'],
-.expense-form__field select[aria-invalid='true'] {
+.expense-form__field select[aria-invalid='true'],
+.expense-form__field textarea[aria-invalid='true'] {
   border-color: var(--danger);
+}
+
+.expense-form__summary {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--danger);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .expense-form__error {

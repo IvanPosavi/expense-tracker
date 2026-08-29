@@ -1,6 +1,11 @@
 import { useId, useState } from 'react'
 import { CATEGORIES } from '../../data/categories'
-import { validateExpense } from '../../utils/validateExpense'
+import {
+  getFirstErrorField,
+  MAX_DESCRIPTION_LENGTH,
+  MAX_TITLE_LENGTH,
+  validateExpense,
+} from '../../utils/validateExpense'
 import './ExpenseForm.css'
 
 function getTodayDate() {
@@ -43,6 +48,7 @@ function ExpenseForm({
   const fieldId = useId()
   const [values, setValues] = useState(() => getFormValues(initialValues))
   const [errors, setErrors] = useState({})
+  const errorCount = Object.keys(errors).length
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -51,6 +57,16 @@ function ExpenseForm({
       ...current,
       [name]: value,
     }))
+
+    setErrors((current) => {
+      if (!current[name]) {
+        return current
+      }
+
+      const nextErrors = { ...current }
+      delete nextErrors[name]
+      return nextErrors
+    })
   }
 
   function handleSubmit(event) {
@@ -60,6 +76,9 @@ function ExpenseForm({
     setErrors(nextErrors)
 
     if (Object.keys(nextErrors).length > 0) {
+      const firstField = getFirstErrorField(nextErrors)
+      const field = event.currentTarget.elements.namedItem(firstField)
+      field?.focus()
       return
     }
 
@@ -80,6 +99,13 @@ function ExpenseForm({
 
   return (
     <form className="expense-form" onSubmit={handleSubmit} noValidate>
+      {errorCount > 0 ? (
+        <p className="expense-form__summary" role="alert">
+          Please fix {errorCount} {errorCount === 1 ? 'error' : 'errors'}{' '}
+          before continuing.
+        </p>
+      ) : null}
+
       <div className="expense-form__field">
         <label htmlFor={`${fieldId}-title`}>Title</label>
         <input
@@ -91,9 +117,10 @@ function ExpenseForm({
           aria-invalid={Boolean(errors.title)}
           aria-describedby={errors.title ? `${fieldId}-title-error` : undefined}
           autoComplete="off"
+          maxLength={MAX_TITLE_LENGTH}
         />
         {errors.title ? (
-          <p id={`${fieldId}-title-error`} className="expense-form__error" role="alert">
+          <p id={`${fieldId}-title-error`} className="expense-form__error">
             {errors.title}
           </p>
         ) : null}
@@ -117,11 +144,7 @@ function ExpenseForm({
             }
           />
           {errors.amount ? (
-            <p
-              id={`${fieldId}-amount-error`}
-              className="expense-form__error"
-              role="alert"
-            >
+            <p id={`${fieldId}-amount-error`} className="expense-form__error">
               {errors.amount}
             </p>
           ) : null}
@@ -147,11 +170,7 @@ function ExpenseForm({
             ))}
           </select>
           {errors.category ? (
-            <p
-              id={`${fieldId}-category-error`}
-              className="expense-form__error"
-              role="alert"
-            >
+            <p id={`${fieldId}-category-error`} className="expense-form__error">
               {errors.category}
             </p>
           ) : null}
@@ -164,13 +183,15 @@ function ExpenseForm({
           id={`${fieldId}-date`}
           name="date"
           type="date"
+          min="2000-01-01"
+          max="2100-12-31"
           value={values.date}
           onChange={handleChange}
           aria-invalid={Boolean(errors.date)}
           aria-describedby={errors.date ? `${fieldId}-date-error` : undefined}
         />
         {errors.date ? (
-          <p id={`${fieldId}-date-error`} className="expense-form__error" role="alert">
+          <p id={`${fieldId}-date-error`} className="expense-form__error">
             {errors.date}
           </p>
         ) : null}
@@ -184,9 +205,22 @@ function ExpenseForm({
           id={`${fieldId}-description`}
           name="description"
           rows="3"
+          maxLength={MAX_DESCRIPTION_LENGTH}
           value={values.description}
           onChange={handleChange}
+          aria-invalid={Boolean(errors.description)}
+          aria-describedby={
+            errors.description ? `${fieldId}-description-error` : undefined
+          }
         />
+        {errors.description ? (
+          <p
+            id={`${fieldId}-description-error`}
+            className="expense-form__error"
+          >
+            {errors.description}
+          </p>
+        ) : null}
       </div>
 
       <div className="expense-form__actions">

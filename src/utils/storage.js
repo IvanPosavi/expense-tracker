@@ -1,5 +1,5 @@
 import { CATEGORIES } from '../data/categories'
-import { isValidExpenseDate, MAX_EXPENSE_AMOUNT } from './validateExpense'
+import { isValidExpenseDate, MAX_DESCRIPTION_LENGTH, MAX_EXPENSE_AMOUNT, MAX_TITLE_LENGTH } from './validateExpense'
 
 export const EXPENSES_STORAGE_KEY = 'acme-expense-tracker-expenses'
 
@@ -30,12 +30,13 @@ export function loadExpenses() {
 export function saveExpenses(expenses) {
   try {
     if (typeof localStorage === 'undefined') {
-      return
+      return false
     }
 
     localStorage.setItem(EXPENSES_STORAGE_KEY, JSON.stringify(expenses))
+    return true
   } catch {
-    // Ignore quota errors and private-mode restrictions so the UI keeps working.
+    return false
   }
 }
 
@@ -50,9 +51,11 @@ function sanitizeExpense(value) {
   const category = typeof value.category === 'string' ? value.category : ''
   const date = typeof value.date === 'string' ? value.date : ''
   const description =
-    typeof value.description === 'string' ? value.description : ''
+    typeof value.description === 'string'
+      ? value.description.trim().slice(0, MAX_DESCRIPTION_LENGTH)
+      : ''
 
-  if (!id || title.length < 2) {
+  if (!id || title.length < 2 || title.length > MAX_TITLE_LENGTH) {
     return null
   }
 

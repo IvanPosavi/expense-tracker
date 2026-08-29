@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { SAMPLE_EXPENSES } from '../data/sampleExpenses'
 import { createExpense } from '../utils/createExpense'
 import { loadExpenses, saveExpenses } from '../utils/storage'
+import { validateExpense } from '../utils/validateExpense'
 
 function toExpenseFields(expenseInput) {
   return {
@@ -25,19 +26,32 @@ function getInitialExpenses() {
 
 export function useExpenses() {
   const [expenses, setExpenses] = useState(getInitialExpenses)
+  const [didSave, setDidSave] = useState(true)
 
   useEffect(() => {
-    saveExpenses(expenses)
+    setDidSave(saveExpenses(expenses))
   }, [expenses])
 
   function addExpense(expenseInput) {
-    const expense = createExpense(toExpenseFields(expenseInput))
+    const fields = toExpenseFields(expenseInput)
+    const errors = validateExpense(fields)
+
+    if (Object.keys(errors).length > 0) {
+      return null
+    }
+
+    const expense = createExpense(fields)
     setExpenses((current) => [expense, ...current])
     return expense
   }
 
   function updateExpense(id, expenseInput) {
     const fields = toExpenseFields(expenseInput)
+    const errors = validateExpense(fields)
+
+    if (Object.keys(errors).length > 0) {
+      return
+    }
 
     setExpenses((current) =>
       current.map((expense) =>
@@ -50,5 +64,13 @@ export function useExpenses() {
     setExpenses((current) => current.filter((expense) => expense.id !== id))
   }
 
-  return { expenses, addExpense, updateExpense, deleteExpense }
+  return {
+    expenses,
+    addExpense,
+    updateExpense,
+    deleteExpense,
+    storageWarning: didSave
+      ? null
+      : 'Your expenses could not be saved on this device. You can keep using the app, but changes may be lost after refresh.',
+  }
 }
