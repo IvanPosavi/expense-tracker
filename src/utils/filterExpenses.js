@@ -15,7 +15,7 @@ export function filterExpenses(
     const matchesSearch =
       query === '' ||
       expense.title.toLowerCase().includes(query) ||
-      expense.description.toLowerCase().includes(query) ||
+      (expense.description ?? '').toLowerCase().includes(query) ||
       expense.category.toLowerCase().includes(query)
 
     const matchesCategory =

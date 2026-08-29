@@ -1,16 +1,14 @@
 import { Pencil, Trash2 } from 'lucide-react'
-import { getCategoryIcon } from '../../utils/getCategoryIcon'
+import { CategoryIcon } from '../../utils/getCategoryIcon'
 import { formatCurrency } from '../../utils/formatCurrency'
 import { formatDate } from '../../utils/formatDate'
 import './ExpenseItem.css'
 
 function ExpenseItem({ expense, onEdit, onDelete }) {
-  const CategoryIcon = getCategoryIcon(expense.category)
-
   return (
     <article className="expense-item">
       <div className="expense-item__icon" aria-hidden="true">
-        <CategoryIcon size={18} />
+        <CategoryIcon category={expense.category} size={18} />
       </div>
 
       <div className="expense-item__details">

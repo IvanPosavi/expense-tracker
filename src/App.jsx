@@ -29,8 +29,11 @@ function App() {
   }
 
   function handleUpdateExpense(expenseInput) {
-    updateExpense(editingExpense.id, expenseInput)
-    setEditingExpense(null)
+    const didUpdate = updateExpense(editingExpense.id, expenseInput)
+
+    if (didUpdate) {
+      setEditingExpense(null)
+    }
   }
 
   function handleConfirmDelete() {

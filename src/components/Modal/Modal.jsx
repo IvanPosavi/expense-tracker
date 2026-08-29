@@ -27,7 +27,10 @@ function Modal({
   const titleId = useId()
   const dialogRef = useRef(null)
   const onCloseRef = useRef(onClose)
-  onCloseRef.current = onClose
+
+  useEffect(() => {
+    onCloseRef.current = onClose
+  })
 
   useEffect(() => {
     const dialog = dialogRef.current

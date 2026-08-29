@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { SAMPLE_EXPENSES } from '../data/sampleExpenses'
 import { createExpense } from '../utils/createExpense'
 import { loadExpenses, saveExpenses } from '../utils/storage'
 import { validateExpense } from '../utils/validateExpense'
+
+const STORAGE_WARNING =
+  'Your expenses could not be saved on this device. You can keep using the app, but changes may be lost after refresh.'
 
 function toExpenseFields(expenseInput) {
   return {
@@ -26,11 +29,20 @@ function getInitialExpenses() {
 
 export function useExpenses() {
   const [expenses, setExpenses] = useState(getInitialExpenses)
-  const [didSave, setDidSave] = useState(true)
+  const [didSave, setDidSave] = useState(() => {
+    const storedExpenses = loadExpenses()
 
-  useEffect(() => {
-    setDidSave(saveExpenses(expenses))
-  }, [expenses])
+    if (storedExpenses === null) {
+      return saveExpenses(SAMPLE_EXPENSES)
+    }
+
+    return true
+  })
+
+  function persist(nextExpenses) {
+    setExpenses(nextExpenses)
+    setDidSave(saveExpenses(nextExpenses))
+  }
 
   function addExpense(expenseInput) {
     const fields = toExpenseFields(expenseInput)
@@ -41,7 +53,7 @@ export function useExpenses() {
     }
 
     const expense = createExpense(fields)
-    setExpenses((current) => [expense, ...current])
+    persist([expense, ...expenses])
     return expense
   }
 
@@ -50,18 +62,19 @@ export function useExpenses() {
     const errors = validateExpense(fields)
 
     if (Object.keys(errors).length > 0) {
-      return
+      return false
     }
 
-    setExpenses((current) =>
-      current.map((expense) =>
+    persist(
+      expenses.map((expense) =>
         expense.id === id ? { ...expense, ...fields } : expense,
       ),
     )
+    return true
   }
 
   function deleteExpense(id) {
-    setExpenses((current) => current.filter((expense) => expense.id !== id))
+    persist(expenses.filter((expense) => expense.id !== id))
   }
 
   return {
@@ -69,8 +82,6 @@ export function useExpenses() {
     addExpense,
     updateExpense,
     deleteExpense,
-    storageWarning: didSave
-      ? null
-      : 'Your expenses could not be saved on this device. You can keep using the app, but changes may be lost after refresh.',
+    storageWarning: didSave ? null : STORAGE_WARNING,
   }
 }

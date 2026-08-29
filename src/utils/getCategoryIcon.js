@@ -1,3 +1,4 @@
+import { createElement } from 'react'
 import {
   Clapperboard,
   HeartPulse,
@@ -20,6 +21,6 @@ const CATEGORY_ICONS = {
   Other: HelpCircle,
 }
 
-export function getCategoryIcon(category) {
-  return CATEGORY_ICONS[category] ?? HelpCircle
+export function CategoryIcon({ category, size }) {
+  return createElement(CATEGORY_ICONS[category] ?? HelpCircle, { size })
 }
