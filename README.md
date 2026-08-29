@@ -52,117 +52,330 @@ YYYY-MM-DD
 
 ---
 
-## 🛠️ Tech stack
+## 🖼️ App Overview
 
-| Area | Choice |
-| --- | --- |
-| UI | React 19 |
-| Bundler | Vite 8 |
-| Language | JavaScript |
-| Charts | Recharts |
-| Icons | Lucide React |
-| Persistence | `localStorage` |
-| PWA | `vite-plugin-pwa` |
-| Styling | CSS3 (custom properties, no Tailwind or Bootstrap) |
+The application includes:
 
-There is no backend, database, or authentication. Data never leaves the browser.
+- **Dashboard** — totals, averages, category breakdown, charts, and recent expenses
+- **Expenses** — add, edit, delete, search, filter, and sort expenses
+- **Categories** — spending totals across all categories
+- **Settings** — theme controls and application preferences
 
 ---
 
-## 📦 Getting started
+## 🛠️ Tech Stack
 
-You need [Node.js](https://nodejs.org/) 20 or newer.
+| Area | Technology |
+| --- | --- |
+| ⚛️ UI | React 19 |
+| ⚡ Build tool | Vite 8 |
+| 🟨 Language | JavaScript |
+| 📊 Charts | Recharts |
+| 🎨 Icons | Lucide React |
+| 💾 Persistence | `localStorage` |
+| 🧩 Styling | CSS3 |
+| 📲 PWA | `vite-plugin-pwa` |
+| 🚀 Deployment | GitHub Pages |
+| 🔁 CI/CD | GitHub Actions |
 
-```bash
-npm install
-npm run dev
-```
+No Tailwind CSS, Bootstrap, Redux, backend, database, or authentication system is used.
 
-Open the URL Vite prints. With the GitHub Pages base path, that is usually:
+---
+
+## 📲 Progressive Web App
+
+Expense Tracker can be installed as a standalone application on supported desktop and mobile browsers.
+
+The PWA includes:
+
+- Web App Manifest
+- 192×192 and 512×512 app icons
+- Apple touch icon
+- Service worker
+- Static asset precaching
+- Offline application shell
+- Automatic service worker updates
+- Cache cleanup for outdated versions
+
+User expense data is not stored inside the service worker cache.
+
+Expenses and theme preferences remain stored separately in `localStorage`.
+
+---
+
+## 💾 Data Storage
+
+This application does not use a backend.
+
+Expense data stays inside the browser using:
 
 ```text
-http://localhost:5173/expense-tracker/
+acme-expense-tracker-expenses
 ```
 
-| Script | What it does |
-| --- | --- |
-| `npm run dev` | Start the local development server |
-| `npm run build` | Create a production build in `dist/` |
-| `npm run preview` | Preview the production build |
-| `npm run lint` | Run Oxlint |
-
-On first visit, the app seeds a few sample expenses so the dashboard and charts are not empty. After that, your list is what is stored in the browser. An empty list stays empty after refresh.
-
----
-
-## 🖱️ Usage
-
-1. Open **Expenses** and fill in title, amount, category, and date. Description is optional.
-2. Use search, category, date range, and sort to find items.
-3. Edit or delete from the list. Delete asks for confirmation.
-4. Check **Dashboard** for totals and charts, and **Categories** for a full category breakdown.
-5. Use **Settings** or the header control to switch light and dark mode.
-
-Clearing site data for this origin removes expenses and the saved theme.
-
----
-
-## 📲 PWA
-
-The production app can be installed from Chrome or Edge and can open the application shell offline after it has loaded once.
-
-- Manifest name: `Expense Tracker | ACME`
-- Short name: `Expense Tracker`
-- Service worker updates automatically so you are not stuck on an old cached build
-
----
-
-## 📁 Project structure
+Theme preference is stored under:
 
 ```text
-src/
-  components/   UI pieces (layout, pages, form, list, charts, modal)
-  data/         Categories, sample expenses, navigation
-  hooks/        useExpenses(), useTheme()
-  utils/        Validation, storage, filters, totals, formatting
-  App.jsx       Page switching and edit/delete dialogs
-  index.css     Design tokens and global styles
+acme-expense-tracker-theme
 ```
 
-Expense objects look like this:
+Each browser, browser profile, and device has its own independent data.
+
+Clearing browser site data will remove stored expenses and preferences.
+
+---
+
+## 🧾 Expense Data Model
+
+Each expense follows this structure:
 
 ```js
 {
   id: "unique-id",
   title: "Groceries",
-  amount: 45.9,
+  amount: 45.90,
   category: "Food",
   date: "2026-08-23",
   description: "Weekly groceries"
 }
 ```
 
-Categories live in one place: Food, Transport, Shopping, Bills, Entertainment, Health, Travel, Other.
+IDs are generated uniquely and array indexes are not used as identifiers.
 
-Storage keys:
+---
 
-- `acme-expense-tracker-expenses`
-- `acme-expense-tracker-theme`
+## 🏷️ Categories
 
-Invalid JSON or malformed expenses are ignored so a bad stored value does not crash the app.
+The application uses one centralized category definition:
+
+- 🍴 Food
+- 🚗 Transport
+- 🛍️ Shopping
+- 🧾 Bills
+- 🎬 Entertainment
+- ❤️ Health
+- ✈️ Travel
+- ❓ Other
+
+---
+
+## 📂 Project Structure
+
+```text
+src/
+├── components/
+│   ├── Dashboard/
+│   ├── EmptyState/
+│   ├── ExpenseChart/
+│   ├── ExpenseFilters/
+│   ├── ExpenseForm/
+│   ├── ExpenseList/
+│   ├── ExpenseSummary/
+│   ├── ExpensesPage/
+│   ├── Header/
+│   ├── Layout/
+│   ├── Modal/
+│   └── Sidebar/
+│
+├── data/
+│   ├── categories.js
+│   ├── navigation.js
+│   └── sampleExpenses.js
+│
+├── hooks/
+│   ├── useExpenses.js
+│   └── useTheme.js
+│
+├── utils/
+│   ├── createExpense.js
+│   ├── expenseCalculations.js
+│   ├── formatCurrency.js
+│   ├── formatDate.js
+│   ├── generateId.js
+│   ├── storage.js
+│   └── validateExpense.js
+│
+├── App.jsx
+├── main.jsx
+└── index.css
+```
+
+---
+
+## ⚙️ Getting Started
+
+**Requirements**
+
+- Node.js 20+
+- npm
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/ivanposavi/expense-tracker.git
+cd expense-tracker
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Vite will usually serve the application at:
+
+```text
+http://localhost:5173/
+```
+
+---
+
+## 📜 Available Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | Run the configured linter |
 
 ---
 
 ## ♿ Accessibility
 
-The app uses semantic HTML, visible focus styles, labelled form fields, and real buttons for actions. Dialogs can be closed with Escape. A skip link jumps to main content.
+Accessibility was included as a dedicated development phase.
+
+The application includes:
+
+- semantic HTML
+- visible focus states
+- keyboard navigation
+- skip link to main content
+- labelled form fields
+- accessible validation messages
+- focus management after navigation
+- focus trapping inside dialogs
+- Escape-to-close dialogs
+- alertdialog confirmation for delete actions
+- screen-reader summaries for charts
+- screen-reader-friendly percentage change descriptions
 
 ---
 
-## 📄 License
+## ✅ Validation & Error Handling
 
-This project is proprietary. Copyright (c) 2026 Ivan Posavi. All rights reserved.
+The form validates:
 
-You may view the source code for portfolio, educational, recruitment, and evaluation purposes only. You may not copy, modify, redistribute, sublicense, sell, or use this source code in another project without prior written permission.
+**Title**
+
+- required
+- minimum 2 characters
+- maximum 80 characters
+
+**Amount**
+
+- required
+- finite numeric value
+- greater than 0
+
+**Category**
+
+- required
+
+**Date**
+
+- required
+- accepted range: 2000–2100
+
+**Description**
+
+- optional
+- maximum 300 characters
+
+Malformed `localStorage` data is ignored safely so invalid stored content does not crash the application.
+
+---
+
+## 🌐 Deployment
+
+The project is deployed through:
+
+**GitHub Actions → GitHub Pages**
+
+Production URL:
+
+👉 [https://ivanposavi.github.io/expense-tracker/](https://ivanposavi.github.io/expense-tracker/)
+
+The Vite production base path is configured for:
+
+```text
+/expense-tracker/
+```
+
+---
+
+## 🔮 Possible Future Improvements
+
+- User authentication
+- Cloud database
+- Multi-device synchronization
+- Import / export JSON
+- CSV export
+- PDF reports
+- Multiple currencies
+- Recurring expenses
+- Monthly budgets
+- Budget warnings
+- Backup and restore
+- Advanced analytics
+- Custom categories
+
+---
+
+## 📚 What This Project Demonstrates
+
+This project demonstrates practical use of:
+
+- React components
+- props and state
+- React hooks
+- custom hooks
+- CRUD operations
+- form validation
+- localStorage
+- data filtering and sorting
+- derived statistics
+- charts and data visualization
+- responsive CSS
+- dark/light themes
+- accessibility
+- PWA development
+- service workers
+- Git
+- GitHub
+- GitHub Actions
+- GitHub Pages deployment
+
+---
+
+## 🔒 License
+
+Copyright © 2026 Ivan Posavi.  
+All rights reserved.
+
+This project is publicly available for portfolio, educational, recruitment, and evaluation purposes only.
+
+You may view the source code, but you may not copy, modify, redistribute, sublicense, sell, or use this source code in another project without prior written permission.
 
 See the [LICENSE](LICENSE) file for the full terms.
+
+---
+
+## 👤 Author
+
+**Ivan Posavi**  
+Frontend Developer  
+[GitHub](https://github.com/ivanposavi)
+
+⭐ If you are reviewing this project as part of my portfolio, feel free to explore the live demo and source code.
